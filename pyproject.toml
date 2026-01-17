@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdf2ocr"
+version = "0.1.0"
+description = "PDF to OCR processing package with Mistral AI integration"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Tomas"}
+]
+keywords = ["pdf", "ocr", "mistral", "document-processing"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Text Processing :: General",
+]
+dependencies = [
+    "PyMuPDF>=1.23.0",
+    "Pillow>=10.0.0",
+    "mistralai>=1.0.0",
+    "pdfplumber>=0.10.0",
+    "python-dotenv>=1.0.0",
+    "requests>=2.28.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+]
+tesseract = [
+    "pytesseract>=0.3.10",
+]
+charts = [
+    "openai>=1.0.0",
+    "anthropic>=0.25.0",
+]
+images = [
+    "openai>=1.0.0",
+]
+export = [
+    "python-docx>=1.0.0",
+    "reportlab>=4.0.0",
+    "cairosvg>=2.7.0",
+]
+all = [
+    "openai>=1.0.0",
+    "anthropic>=0.25.0",
+    "pytesseract>=0.3.10",
+    "python-docx>=1.0.0",
+    "reportlab>=4.0.0",
+    "cairosvg>=2.7.0",
+]
+
+[project.scripts]
+pdf2ocr = "pdf2ocr.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/tomas/pdf2ocr"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pdf2ocr*"]
