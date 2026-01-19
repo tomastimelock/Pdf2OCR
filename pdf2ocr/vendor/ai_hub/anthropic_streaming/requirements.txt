@@ -1,0 +1,9 @@
+# Filepath: code_migration/ai_providers/anthropic_streaming/requirements.txt
+# Description: Dependencies for Anthropic Streaming module
+# Layer: AI Provider
+
+# Core dependency - Official Anthropic SDK with streaming support
+anthropic>=0.25.0
+
+# Python version requirement
+# Requires Python 3.8 or higher

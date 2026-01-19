@@ -1,0 +1,10 @@
+# RAG Pipeline Requirements
+# Standalone module for retrieval augmented generation
+
+# Core AI Providers
+anthropic>=0.40.0
+openai>=1.60.0
+pinecone>=7.0.0
+
+# Optional: For Pydantic model support
+pydantic>=2.0.0

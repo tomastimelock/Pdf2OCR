@@ -1,0 +1,76 @@
+# ImageCore - Unified Image Processing Engine
+# Core dependencies and optional packages
+
+# =============================================================================
+# CORE DEPENDENCIES (Required)
+# =============================================================================
+Pillow>=9.0.0
+
+# =============================================================================
+# RECOMMENDED DEPENDENCIES
+# These provide enhanced functionality but have fallback implementations
+# =============================================================================
+numpy>=1.20.0
+scipy>=1.7.0
+
+# =============================================================================
+# OPTIONAL DEPENDENCIES
+# Install based on features you need
+# =============================================================================
+
+# --- Computer Vision (face detection, grabcut, lens correction) ---
+# pip install opencv-python
+# opencv-python>=4.5.0
+
+# --- Background Removal (AI-based) ---
+# pip install rembg
+# rembg>=2.0.0
+
+# --- RAW Processing ---
+# pip install rawpy
+# rawpy>=0.17.0
+
+# --- HDR Processing (enhanced) ---
+# OpenCV also provides better HDR merging capabilities
+
+# =============================================================================
+# INSTALLATION GROUPS
+# =============================================================================
+
+# Basic installation (core features):
+#   pip install Pillow numpy scipy
+
+# Full installation (all features):
+#   pip install Pillow numpy scipy opencv-python rembg rawpy
+
+# Minimal installation (limited features):
+#   pip install Pillow
+
+# =============================================================================
+# FEATURE AVAILABILITY BY DEPENDENCIES
+# =============================================================================
+#
+# FEATURE                   | Pillow | +numpy/scipy | +opencv | +rembg | +rawpy
+# --------------------------|--------|--------------|---------|--------|-------
+# Resize/Crop/Rotate        |   OK   |     OK       |   OK    |   OK   |   OK
+# Format Conversion         |   OK   |     OK       |   OK    |   OK   |   OK
+# Basic Filters             |   OK   |     OK       |   OK    |   OK   |   OK
+# Blur Detection            | Basic  |   Enhanced   |   OK    |   OK   |   OK
+# Noise Detection           | Basic  |   Enhanced   |   OK    |   OK   |   OK
+# Smart Cropping            |   No   |     OK       |   OK    |   OK   |   OK
+# Face Detection            |   No   |     No       |   OK    |   OK   |   OK
+# Lens Correction           | Basic  |   Enhanced   | Enhanced|Enhanced|Enhanced
+# HDR Merging               | Basic  |   Enhanced   | Best    |  Best  |  Best
+# Background Removal        |   No   |   GrabCut*   |   OK    |  Best  |  Best
+# RAW Processing            |   No   |     No       |   No    |   No   |   OK
+#
+# * GrabCut requires OpenCV
+
+# =============================================================================
+# DEVELOPMENT DEPENDENCIES
+# =============================================================================
+# pytest>=7.0.0
+# pytest-cov>=3.0.0
+# black>=22.0.0
+# flake8>=4.0.0
+# mypy>=0.950

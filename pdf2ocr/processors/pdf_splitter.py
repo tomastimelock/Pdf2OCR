@@ -331,3 +331,148 @@ class PDFSplitter:
                         continue
 
         return extracted
+
+    def merge_pdfs(
+        self,
+        pdf_paths: list[str | Path],
+        output_path: str | Path
+    ) -> PDFMetadata:
+        """
+        Merge multiple PDF files into a single PDF.
+
+        Args:
+            pdf_paths: List of paths to PDF files to merge
+            output_path: Path for the merged output PDF
+
+        Returns:
+            PDFMetadata for the merged document
+        """
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        merged_doc = fitz.open()
+        total_pages = 0
+
+        for pdf_path in pdf_paths:
+            pdf_path = Path(pdf_path)
+            with fitz.open(pdf_path) as doc:
+                merged_doc.insert_pdf(doc)
+                total_pages += len(doc)
+
+        merged_doc.save(str(output_path))
+        merged_doc.close()
+
+        return self.get_metadata(output_path)
+
+    def batch_split(
+        self,
+        pdf_paths: list[str | Path],
+        output_base_dir: str | Path,
+        to_images: bool = True
+    ) -> dict[str, list[PageInfo]]:
+        """
+        Split multiple PDFs to images or pages in batch.
+
+        Args:
+            pdf_paths: List of PDF file paths
+            output_base_dir: Base directory for outputs (subdirs created per PDF)
+            to_images: If True, convert to images; if False, split to PDFs
+
+        Returns:
+            Dict mapping PDF filename to list of PageInfo
+        """
+        output_base_dir = Path(output_base_dir)
+        results = {}
+
+        for pdf_path in pdf_paths:
+            pdf_path = Path(pdf_path)
+            pdf_name = pdf_path.stem
+            output_dir = output_base_dir / pdf_name
+
+            if to_images:
+                pages = self.split_to_images(pdf_path, output_dir)
+            else:
+                pages = self.split_to_pages(pdf_path, output_dir)
+
+            results[pdf_name] = pages
+
+        return results
+
+    def extract_tables_raw(
+        self,
+        pdf_path: str | Path,
+        page_numbers: Optional[list[int]] = None
+    ) -> list[dict]:
+        """
+        Extract raw table data from PDF using pdfplumber.
+
+        Args:
+            pdf_path: Path to the PDF file
+            page_numbers: Specific pages to extract from (1-indexed), or None for all
+
+        Returns:
+            List of table dicts with page_number, table_index, headers, and rows
+        """
+        try:
+            import pdfplumber
+        except ImportError:
+            raise ImportError(
+                "pdfplumber is required for table extraction. "
+                "Install with: pip install pdfplumber"
+            )
+
+        pdf_path = Path(pdf_path)
+        tables = []
+
+        with pdfplumber.open(pdf_path) as pdf:
+            pages_to_process = range(len(pdf.pages))
+            if page_numbers:
+                pages_to_process = [p - 1 for p in page_numbers if 0 < p <= len(pdf.pages)]
+
+            for page_idx in pages_to_process:
+                page = pdf.pages[page_idx]
+                page_tables = page.extract_tables()
+
+                for table_idx, table_data in enumerate(page_tables, start=1):
+                    if not table_data or len(table_data) < 2:
+                        continue
+
+                    headers = table_data[0] if table_data else []
+                    rows = table_data[1:] if len(table_data) > 1 else []
+
+                    tables.append({
+                        "page_number": page_idx + 1,
+                        "table_index": table_idx,
+                        "headers": headers,
+                        "rows": rows,
+                        "row_count": len(rows),
+                        "column_count": len(headers) if headers else 0
+                    })
+
+        return tables
+
+    def get_page_info(self, pdf_path: str | Path, page_number: int) -> PageInfo:
+        """
+        Get information about a specific page.
+
+        Args:
+            pdf_path: Path to the PDF file
+            page_number: Page number (1-indexed)
+
+        Returns:
+            PageInfo for the specified page
+        """
+        with fitz.open(pdf_path) as doc:
+            page_idx = page_number - 1
+            if page_idx < 0 or page_idx >= len(doc):
+                raise ValueError(f"Page {page_number} does not exist")
+
+            page = doc[page_idx]
+            rect = page.rect
+
+            return PageInfo(
+                page_number=page_number,
+                width=rect.width,
+                height=rect.height,
+                has_text=bool(page.get_text().strip())
+            )

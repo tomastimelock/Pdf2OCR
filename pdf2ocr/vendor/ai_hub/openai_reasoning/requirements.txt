@@ -1,0 +1,8 @@
+# OpenAI Reasoning Provider Requirements
+# Self-contained module for o1/o3 reasoning models
+
+# Core dependency
+openai>=1.3.0
+
+# Optional dependencies for enhanced functionality
+python-dotenv>=1.0.0  # For .env file support

@@ -1,0 +1,11 @@
+# Mistral Chat Provider Dependencies
+# Installation: pip install -r requirements.txt
+
+# Core dependency - Mistral AI Python SDK
+mistralai>=1.0.0
+
+# Optional dependencies (commonly used with chat providers)
+# Uncomment if needed for your use case:
+
+# python-dotenv>=1.0.0  # For loading .env files with API keys
+# pydantic>=2.0.0       # For structured data validation

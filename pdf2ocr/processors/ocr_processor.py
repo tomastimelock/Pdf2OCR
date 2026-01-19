@@ -3,10 +3,14 @@
 import os
 from pathlib import Path
 from dataclasses import dataclass, field
-from typing import Optional, Callable
+from typing import Optional, Callable, List, Literal
 
 from pdf2ocr.providers.base import BaseOCRProvider, OCRResult
 from pdf2ocr.providers.mistral_provider import MistralOCRProvider
+
+
+# Engine type for type hints
+EngineType = Literal["auto", "mistral", "openai", "tesseract"]
 
 
 @dataclass
@@ -29,8 +33,12 @@ class OCRProcessor:
     """
     Orchestrates OCR processing with support for multiple providers.
 
-    Primary provider is Mistral, with optional fallback support for
-    Tesseract (local OCR).
+    Supports three modes:
+    - Single provider: Use a specific OCR engine
+    - Fallback: Primary provider with fallbacks if quality is low
+    - Auto (multi-engine): Automatically try engines until quality threshold met
+
+    Supported engines: mistral, openai, tesseract
     """
 
     QUALITY_THRESHOLD = 0.7
@@ -39,19 +47,58 @@ class OCRProcessor:
         self,
         provider: Optional[BaseOCRProvider] = None,
         fallback_providers: Optional[list[BaseOCRProvider]] = None,
-        quality_threshold: float = QUALITY_THRESHOLD
+        quality_threshold: float = QUALITY_THRESHOLD,
+        engine: EngineType = "mistral",
+        engine_order: Optional[List[str]] = None
     ):
         """
         Initialize the OCR processor.
 
         Args:
-            provider: Primary OCR provider (default: MistralOCRProvider)
+            provider: Primary OCR provider (overrides engine parameter)
             fallback_providers: List of fallback providers to try if primary fails
             quality_threshold: Minimum quality score to accept results
+            engine: Engine to use ("auto", "mistral", "openai", "tesseract")
+            engine_order: For "auto" mode, priority order of engines
         """
-        self.provider = provider or MistralOCRProvider()
-        self.fallback_providers = fallback_providers or []
         self.quality_threshold = quality_threshold
+        self.engine = engine
+        self.engine_order = engine_order
+
+        if provider:
+            # Use explicitly provided provider
+            self.provider = provider
+            self.fallback_providers = fallback_providers or []
+        elif engine == "auto":
+            # Use multi-engine provider with automatic fallback
+            from pdf2ocr.providers.multi_engine_adapter import MultiEngineOCRProvider
+            self.provider = MultiEngineOCRProvider(
+                engine_order=engine_order,
+                quality_threshold=quality_threshold
+            )
+            self.fallback_providers = []
+        else:
+            # Use specific engine
+            self.provider = self._create_engine(engine)
+            self.fallback_providers = fallback_providers or []
+
+    def _create_engine(self, engine: str) -> BaseOCRProvider:
+        """Create a specific OCR engine."""
+        engine = engine.lower()
+
+        if engine == "mistral":
+            return MistralOCRProvider()
+        elif engine == "openai":
+            from pdf2ocr.providers.openai_ocr_provider import OpenAIOCRProvider
+            return OpenAIOCRProvider()
+        elif engine == "tesseract":
+            from pdf2ocr.providers.tesseract_provider import TesseractOCRProvider
+            return TesseractOCRProvider()
+        else:
+            raise ValueError(
+                f"Unknown engine: {engine}. "
+                f"Available: auto, mistral, openai, tesseract"
+            )
 
     def process_image(self, image_path: str | Path, page_number: int = 1) -> OCRResult:
         """

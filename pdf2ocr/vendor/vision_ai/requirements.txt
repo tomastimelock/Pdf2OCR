@@ -1,0 +1,52 @@
+# VisionAI - Unified Computer Vision Requirements
+# Core dependencies (required)
+Pillow>=9.0.0
+numpy>=1.20.0
+
+# Face Detection Backends
+# face-recognition>=1.3.0  # Requires dlib, best accuracy
+# dlib>=19.22.0           # Required for face_recognition
+# mediapipe>=0.10.0       # Google's face detection
+opencv-python>=4.5.0      # OpenCV for basic detection
+
+# Object Detection Backends
+# ultralytics>=8.0.0      # YOLOv8 (recommended)
+# torch>=1.9.0            # PyTorch for YOLO
+# torchvision>=0.10.0     # Vision models
+
+# Text/OCR Backends
+# pytesseract>=0.3.10     # Tesseract OCR wrapper
+# easyocr>=1.6.0          # Easy OCR (no Tesseract needed)
+# paddleocr>=2.6.0        # PaddlePaddle OCR
+
+# Barcode/QR Scanning
+# pyzbar>=0.1.9           # zbar wrapper (recommended)
+# zxing-cpp>=2.0.0        # ZXing C++ wrapper
+
+# Emotion Analysis
+# fer>=22.4.0             # Facial Emotion Recognition
+# deepface>=0.0.79        # DeepFace library
+
+# Scene Classification
+# clip @ git+https://github.com/openai/CLIP.git  # CLIP model
+
+# NSFW Detection
+# nsfw-detector>=1.2.0    # NSFW detection
+# opennsfw2>=0.10.0       # OpenNSFW2 model
+# nudenet>=3.0.0          # NudeNet detector
+
+# AI/API Backends
+# openai>=1.0.0           # OpenAI Vision API
+# anthropic>=0.18.0       # Anthropic Claude Vision
+
+# TensorFlow (alternative to PyTorch)
+# tensorflow>=2.10.0      # TensorFlow backend
+# tensorflow-hub>=0.12.0  # TF Hub models
+
+# Optional Utilities
+scipy>=1.7.0              # Scientific computing
+colorsys                  # Color conversions (stdlib)
+
+# Development
+# pytest>=7.0.0
+# pytest-cov>=3.0.0

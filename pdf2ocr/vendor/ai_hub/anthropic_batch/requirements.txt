@@ -1,0 +1,9 @@
+# Anthropic Batch API Provider Requirements
+# Self-contained module dependencies
+
+# Core dependencies
+anthropic>=0.25.0
+python-dotenv>=1.0.0
+
+# Optional but recommended
+typing-extensions>=4.5.0  # For better type hints in Python 3.8+

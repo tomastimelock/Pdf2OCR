@@ -1,0 +1,23 @@
+# PDF Toolkit Module - Requirements
+# ================================
+
+# Core dependencies (required)
+PyPDF2>=3.0.0
+pdfplumber>=0.10.0
+Pillow>=10.0.0
+
+# Optional: PDF to image conversion
+# Requires poppler to be installed on system
+# pdf2image>=1.16.0
+
+# Optional: OCR support
+# Requires tesseract to be installed on system
+# pytesseract>=0.3.10
+
+# Optional: Embedding generation
+# sentence-transformers>=2.2.0
+# numpy>=1.24.0
+
+# Optional: Excel export
+# pandas>=2.0.0
+# openpyxl>=3.1.0

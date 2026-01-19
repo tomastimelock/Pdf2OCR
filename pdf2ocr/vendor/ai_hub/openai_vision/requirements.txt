@@ -1,0 +1,11 @@
+# OpenAI Vision Provider Requirements
+# Core dependencies for the standalone module
+
+# OpenAI API client
+openai>=1.3.0
+
+# Image processing
+Pillow>=10.0.0
+
+# Optional: Environment variable management
+python-dotenv>=1.0.0

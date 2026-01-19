@@ -1,0 +1,46 @@
+# WorkflowPro - Unified Automated Workflow Engine
+# Core dependencies
+Pillow>=9.0.0
+numpy>=1.20.0
+
+# Optional: OCR support
+pytesseract>=0.3.10
+
+# Optional: OpenCV for video processing
+opencv-python>=4.5.0
+
+# Optional: Face detection
+dlib>=19.22.0
+face_recognition>=1.3.0
+
+# Optional: AI/ML features
+torch>=1.9.0
+torchvision>=0.10.0
+
+# Database
+# sqlite3 is included in Python standard library
+
+# Scheduling (optional)
+schedule>=1.1.0
+
+# HTTP requests for webhooks
+requests>=2.25.0
+
+# JSON handling
+# json is included in Python standard library
+
+# Related internal modules (install from parent directory)
+# smart_organizer
+# content_shield
+# pro_print_workflow
+# document_vault
+# event_photographer
+# brand_guardian
+# product_studio
+# surveillance_ai
+
+# Super-modules (optional, for enhanced functionality)
+# image_core
+# vision_ai
+# media_vault
+# export_hub

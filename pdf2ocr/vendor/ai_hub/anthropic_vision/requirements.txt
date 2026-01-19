@@ -1,0 +1,11 @@
+# Anthropic Vision Provider Dependencies
+# Self-contained module for image analysis with Claude
+
+# Core dependency - Anthropic Python SDK
+anthropic>=0.25.0
+
+# Image processing and token estimation
+Pillow>=10.0.0
+
+# Optional: Environment variable management
+python-dotenv>=1.0.0

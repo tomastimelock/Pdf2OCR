@@ -1,0 +1,17 @@
+# OCR Multi-Engine Module - Dependencies
+# Layer: Extractor
+
+# Core OCR engines
+pytesseract>=0.3.10
+Pillow>=10.0.0
+PyMuPDF>=1.23.0  # For PDF processing (fitz)
+
+# Cloud OCR providers
+openai>=1.0.0
+mistralai>=0.0.7
+
+# Optional but recommended
+requests>=2.31.0  # For direct API calls
+
+# Image processing
+# Pillow already listed above
