@@ -212,13 +212,23 @@ class ChartRegenerator:
                 chart_info.get('type', 'unknown')
             )
 
-            if svg_result.get('success'):
-                # Save SVG
+            svg_code = svg_result.get('svg_code', '')
+
+            if svg_result.get('success') or svg_code:
+                # Save SVG (even if validation failed, browser may render it)
                 filename = f"page_{page_number:03d}_chart_{chart_idx + 1:03d}.svg"
                 svg_path = output_dir / filename
 
                 with open(svg_path, 'w', encoding='utf-8') as f:
-                    f.write(svg_result['svg_code'])
+                    f.write(svg_code)
+
+                # Log retry/repair info
+                attempts = svg_result.get('attempts', 1)
+                was_repaired = svg_result.get('was_repaired', False)
+                if attempts > 1:
+                    logger.debug(f"SVG generated after {attempts} attempts")
+                if was_repaired:
+                    logger.debug("SVG required repairs during validation")
 
                 chart_data = ChartData(
                     chart_id=chart_idx,
@@ -226,16 +236,18 @@ class ChartRegenerator:
                     chart_index=chart_idx,
                     chart_type=chart_info.get('type', 'unknown'),
                     description=description,
-                    svg_content=svg_result['svg_code'],
+                    svg_content=svg_code,
                     svg_path=str(svg_path),
                     width=svg_result.get('width', 0),
                     height=svg_result.get('height', 0),
                     source_description=chart_info.get('description', ''),
-                    success=True
+                    success=svg_result.get('success', False),
+                    error=svg_result.get('error') if not svg_result.get('success') else None
                 )
 
                 charts.append(chart_data)
-                logger.debug(f"Generated: {filename}")
+                status = "generated" if svg_result.get('success') else "generated with validation warnings"
+                logger.debug(f"{status}: {filename}")
 
             else:
                 error_msg = svg_result.get('error', 'Unknown error')
