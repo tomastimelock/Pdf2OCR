@@ -20,6 +20,10 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+# Set Cairo DLL path for Windows (required for SVG to PNG conversion)
+project_root = Path(__file__).parent
+os.environ.setdefault('CAIROCFFI_DLL_DIRECTORIES', str(project_root))
+
 # Configuration
 PDF_PATH = Path(r"C:\Users\tomas\PycharmProjects\Pdf2OCR\data\10-strategier-for-klimatresistens---gis-vagledning-for-energieffektiviserande-mikroklimatsmodifiering.pdf")
 OUTPUT_DIR = Path(r"C:\Users\tomas\PycharmProjects\Pdf2OCR\output")
