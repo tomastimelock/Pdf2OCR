@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(pip install:*)",
+      "Bash(python run_full_pipeline.py:*)",
+      "Bash(git reset:*)",
+      "Bash(echo:*)",
+      "Bash(git rm:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: PDF2OCR pipeline with Mistral AI integration\n\n- PDF splitting and OCR processing with Mistral AI\n- Table extraction and SVG generation\n- Chart detection and regeneration\n- Image regeneration using OpenAI DALL-E\n- Export to Word and PDF formats\n- Fix: Rename ''BodyText'' style to ''DocBody'' in PDF exporter to avoid\n  conflict with reportlab''s built-in style\n- Fix: Use ASCII characters for status output on Windows console\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(gh repo create:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "Bash(findstr:*)",
+      "Bash(git filter-branch:*)",
+      "Bash(tree:*)",
+      "Bash(xcopy:*)",
+      "Bash(powershell:*)",
+      "Bash(dir:*)",
+      "Bash(python:*)",
+      "Bash(winget install:*)",
+      "Bash(pipwin install:*)",
+      "Bash(curl:*)",
+      "WebSearch",
+      "Bash(copy:*)",
+      "Bash(cmd /c copy \"C:\\\\Users\\\\tomas\\\\PycharmProjects\\\\Pdf2OCR\\\\cairo-temp\\\\cairo-windows-1.17.2\\\\lib\\\\x64\\\\cairo.dll\" \"C:\\\\Users\\\\tomas\\\\PycharmProjects\\\\Pdf2OCR\\\\.venv\\\\Lib\\\\site-packages\\\\libcairo-2.dll\")",
+      "Bash(set CAIROCFFI_DLL_DIRECTORIES=C:UserstomasPycharmProjectsPdf2OCR:*)",
+      "Bash(git restore:*)"
+    ]
+  }
+}

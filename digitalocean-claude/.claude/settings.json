@@ -1,0 +1,62 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(doctl compute droplet list:*)",
+      "Bash(doctl compute droplet get:*)",
+      "Bash(doctl compute ssh-key list:*)",
+      "Bash(doctl compute region list:*)",
+      "Bash(doctl compute size list:*)",
+      "Bash(doctl compute image list:*)",
+      "Bash(doctl kubernetes cluster list:*)",
+      "Bash(doctl kubernetes cluster get:*)",
+      "Bash(doctl compute domain list:*)",
+      "Bash(doctl compute domain records list:*)",
+      "Bash(doctl compute firewall list:*)",
+      "Bash(doctl compute load-balancer list:*)",
+      "Bash(doctl compute volume list:*)",
+      "Bash(doctl databases list:*)",
+      "Bash(doctl account get:*)",
+      "Bash(doctl balance get:*)",
+      "Bash(doctl apps list:*)",
+      "Bash(doctl apps get:*)",
+      "Bash(doctl apps logs:*)",
+      "Bash(doctl monitoring alert list:*)",
+      "Read(*.yaml)",
+      "Read(*.yml)",
+      "Read(*.tf)",
+      "Read(*.json)",
+      "Read(.env.example)"
+    ],
+    "ask": [
+      "Bash(doctl compute droplet create:*)",
+      "Bash(doctl compute droplet delete:*)",
+      "Bash(doctl compute droplet-action:*)",
+      "Bash(doctl kubernetes cluster create:*)",
+      "Bash(doctl kubernetes cluster delete:*)",
+      "Bash(doctl kubernetes cluster node-pool:*)",
+      "Bash(doctl compute domain create:*)",
+      "Bash(doctl compute domain delete:*)",
+      "Bash(doctl compute domain records create:*)",
+      "Bash(doctl compute domain records delete:*)",
+      "Bash(doctl compute firewall create:*)",
+      "Bash(doctl compute firewall delete:*)",
+      "Bash(doctl compute volume create:*)",
+      "Bash(doctl compute volume delete:*)",
+      "Bash(doctl databases create:*)",
+      "Bash(doctl databases delete:*)",
+      "Bash(doctl apps create:*)",
+      "Bash(doctl apps delete:*)",
+      "Bash(doctl apps create-deployment:*)",
+      "Bash(doctl apps update:*)"
+    ],
+    "deny": [
+      "Bash(doctl auth:*)",
+      "Bash(rm -rf:*)",
+      "Read(.env)",
+      "Read(**/secrets/**)"
+    ]
+  },
+  "env": {
+    "DO_DEFAULT_REGION": "nyc3"
+  }
+}

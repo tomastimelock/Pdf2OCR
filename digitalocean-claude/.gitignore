@@ -1,0 +1,17 @@
+# Environment files with secrets
+.env
+.env.local
+
+# Claude local files
+.claude/*.local.*
+CLAUDE.local.md
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS files
+.DS_Store
+Thumbs.db
